@@ -4,5 +4,5 @@
 
 ## Programming Information
 
-### [LokProgrammer](ESU-Loksound/Programming/LokProgrammer.md)
-### [RITMRC Standard](<ESU-Loksound/Programming/RITMRC Standard.md>)
+### [LokProgrammer](Programming/LokProgrammer.md)
+### [RITMRC Standard](<Programming/RITMRC Standard.md>)
