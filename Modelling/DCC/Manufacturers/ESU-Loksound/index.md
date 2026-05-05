@@ -5,4 +5,4 @@
 ## Programming Information
 
 ### [LokProgrammer](Programming/LokProgrammer.md)
-### [RITMRC Standard](<Programming/RITMRC Standard.md>)
+### [RITMRC Standard](<Programming/RITMRC Standard.html>)
