@@ -180,7 +180,8 @@ Random 1:
 | Heavy Load        | F6  |   |   |                  | Shift 6 (Heavy Load) |
 | Dimmer            | F7  |   |   |                  | Dimmer            | [24] Short Air Let Off |
 | Engine Sounds     | F8  |   |   |                  |                   | [1] Prime Mover Sound |
-| Engine Sounds [2] | F8  |   | S |                  |                   | [29] Brake Automatic Set/Release |
+| Engine Sounds [2] | F8  |   |   |                  |                   | [29] Brake Automatic Set/Release |
+| Engine Sounds     | F8  |   | S |                  |                   | [19] Reverser |
 | Engine Sounds [3] | F8, not F15 | | S |  Update This | Update This | [26] Starting Delay |
 | Engine Sounds     | F8  |   | D |                  |                   | [25] Traction Motors |
 | Engine Sounds [4] | not F8 | |  |                  |                   | [18] Air Dryers on Shutdown |
