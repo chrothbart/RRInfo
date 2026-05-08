@@ -13,7 +13,7 @@ Note: the below is an operators reference. See the configuration sections for th
 | 0 | Headlight | Lighting | Yes |
 | 1 | Bell | Sound |
 | 2 | Horn | Sound |
-| 3 | Coupler* | Sound |
+| 3 | Coupler [^Coupler] | Sound |
 | 4 | Brakes | Motor Control | Yes |
 | 5 | Dynamic Brakes | Motor Control | Yes |
 | 6 | Heavy Load | Motor Control | Yes |
@@ -32,20 +32,20 @@ Note: the below is an operators reference. See the configuration sections for th
 | 19 | Random 3 ( Short Air Let Off) | Random | Yes[^PTAIR] | ProtoThrottle air test |
 | 20 | Random 4 (Compressor) | Random | Yes[^PTAIR] | ProtoThrottle air test |
 | 21 | Random 5 (Air Dryer) | Random |
-| 22 | Front Dim/Ditchlights\*\* | ProtoThrottle |
-| 23 | Front Bright/Ditchlights\*\* | ProtoThrottle |
+| 22 | Front Dim/Ditchlights [^PTLight] | ProtoThrottle |
+| 23 | Front Bright/Ditchlights [^PTLight] | ProtoThrottle |
 | 24 | Reverser Center | ProtoThrottle | Yes |
 | 25 | Random 6 (Shutters) | Random |
-| 26 | Rear Dim/Ditchlights\*\* | ProtoThrottle |
-| 27 | Rear Bright/Ditchlights\*\* | ProtoThrottle |
+| 26 | Rear Dim/Ditchlights [^PTLight] | ProtoThrottle |
+| 27 | Rear Bright/Ditchlights [^PTLight] | ProtoThrottle |
 | 28 | Not Currently Used |
 | 29 | Not Currently Used |
 | 30 | Coast | Motor Control | | For dynamic sound control |
 | 31 | Notch 8 | Motor Control | | For dynamic sound control |
 
-\* Custom coupler logic should be used, information coming soon
+[^Coupler]: Custom coupler logic should be used, information coming soon
 
-\*\* See ProtoThrottle notes on condensed lighting control
+[^PTLight]: See ProtoThrottle notes on condensed lighting control
 
 [^PTAIR]: Used by ProtoThrottle Air Test feature
 
@@ -167,9 +167,94 @@ Random 1:
 
 ### Function Mapping
 
+| Name              | F#  | D | M | Physical Outputs | Logical Functions | Sounds |
+| ----------------- | --  | - | - | ---------------- | ----------------- | ------ |
+| Front Headlight   | F0  | F |   | Front Light [1]  |
+| Rear Headlight    | F0  | R |   | Rear Light [1]   |
+| Bell              | F1  |   |   |                  |                   | [4] Bell |
+| Horn              | F2  |   |   |                  | Grade Crossing    | [3] Horn |
+| Coupler           | F3  |   |   |                  |                   | Coupler [^Coupler] |
+| Brake             | F4  |   |   |                  | Brake 3           |          |
+| Brake [1]         | not F4 | |  |                  | Disable Brake Sound  |
+| Dynamic Brake     | F5  |   |   |                  | Shift 1 (Dynamics)   | [6] Dynamic Brakes |
+| Heavy Load        | F6  |   |   |                  | Shift 6 (Heavy Load) |
+| Dimmer            | F7  |   |   |                  | Dimmer            | [24] Short Air Let Off |
+| Engine Sounds     | F8  |   |   |                  |                   | [1] Prime Mover Sound |
+| Engine Sounds [2] | F8  |   | S |                  |                   | [29] Brake Automatic Set/Release |
+| Engine Sounds [3] | F8, not F15 | | S |  Update This | Update This | [26] Starting Delay |
+| Engine Sounds     | F8  |   | D |                  |                   | [25] Traction Motors |
+| Engine Sounds [4] | not F8 | |  |                  |                   | [18] Air Dryers on Shutdown |
+| Ditchlights*      | not F7, F9, not F12 | F | | Front Ditchlights |
+| Ditchlights*      | not F7, F9, not F12 | R | | Rear Ditchlights |
+| Number Boards*    | F10 |   |   | Number Boards    |
+| Marker Lights*    | F11 |   |   | Marker Lights    |
+| Switching Mode*   | F12 |   |   | Front & Rear Headlight | Dimmer |
+| Extra Lighting*   | F13 |   |   | Extra Lighting   |
+| Extra Lighting*   | F14 |   |   | Extra Lighting   |
+| Extra Lighting*   | F15 |   |   | Extra Lighting   |
+| Extra Lighting*   | F16 |   |   | Extra Lighting   |
+| Random Sound 1    | F17 |   |   |                  |                   | [8] Radiator |
+| Random Sound 2    | F18 |   |   |                  |                   | [13] Sanding Valve |
+| Random Sound 3    | F19 |   |   |                  |                   | [24] Short Air Let Off |
+| Random Sound 4    | F20 |   |   |                  |                   | [7] Air Compressor |
+| Random Sound 5    | F21 |   |   |                  |                   | [17]  Air Dryer |
+| Front Dim [^PTLight] | F22, not F23 | | | Front Light [2] (Dim) |
+| Front Bright [^PTLight] | not F22, F23 | | | Front Light [1] |
+| Front Bright/Ditch | F22, F23 | | | Front Headlight [1], Front Ditchlights |
+| Reverser Center   | F24 |   |   |                  | Shift 5 (Reverser) | [20] Reverser Center |
+| Random Sound 6    | F25 |   |   |                  |                   | [32] Shutters |
+| Rear Dim [^PTLight] | F26, not F27 | | | Rear Light [2] (Dim) |
+| Rear Bright [^PTLight] | not F26, F27 | | | Front Light [1] |
+| Rear Bright/Ditch | F26, F27 | | | Rear Light [1], Rear Ditchlights |
+| Coast             | F30 |   |   |                  | Shift 3 (Coast) |
+| Run 8             | F31 |   |   |                  | Shift 2 (Run 8) |
+
+### Identification
+
+This is currently unused, but that should probably change.
+
+### Compatibility
+
+#### Broadway Limited Steam Engine Control
+
+[Configure LokSound for BLI Steam]
+
+### Motor Settings
+
+[LokSound Speed Matching]
+
+### Smoke Unit
+
+Section Coming Soon
+
+### Special Options
+
+#### Memory Settings
+
+`Persist functions: enabled`
+
+### Sound Settings
+
+#### Steam Chuffs
+
+[Configure LokSound for BLI Steam]
+
+#### Brake Sounds
+
+Todo: test these settings
+
+#### Dynamic Sound Control
+
+Section Coming Soon
+
+### Sound Slot Settings
+
 Section Coming Soon
 
 ## Release Notes
 
+
+* 2026-05-08
+  * Completed outline
 * 2026-05-04
   * Initial document creation
