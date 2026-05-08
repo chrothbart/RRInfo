@@ -167,48 +167,56 @@ Random 1:
 
 ### Function Mapping
 
-| Name              | F#  | D | M | Physical Outputs | Logical Functions | Sounds |
-| ----------------- | --  | - | - | ---------------- | ----------------- | ------ |
-| Front Headlight   | F0  | F |   | Front Light [1]  |
-| Rear Headlight    | F0  | R |   | Rear Light [1]   |
-| Bell              | F1  |   |   |                  |                   | [4] Bell |
-| Horn              | F2  |   |   |                  | Grade Crossing    | [3] Horn |
-| Coupler           | F3  |   |   |                  |                   | Coupler [^Coupler] |
-| Brake             | F4  |   |   |                  | Brake 3           |          |
-| Brake [1]         | not F4 | |  |                  | Disable Brake Sound  |
-| Dynamic Brake     | F5  |   |   |                  | Shift 1 (Dynamics)   | [6] Dynamic Brakes |
-| Heavy Load        | F6  |   |   |                  | Shift 6 (Heavy Load) |
-| Dimmer            | F7  |   |   |                  | Dimmer            | [24] Short Air Let Off |
-| Engine Sounds     | F8  |   |   |                  |                   | [1] Prime Mover Sound |
-| Engine Sounds [2] | F8  |   |   |                  |                   | [29] Brake Automatic Set/Release |
-| Engine Sounds     | F8  |   | S |                  |                   | [19] Reverser |
-| Engine Sounds [3] | F8, not F15 | | S |  Update This | Update This | [26] Starting Delay |
-| Engine Sounds     | F8  |   | D |                  |                   | [25] Traction Motors |
-| Engine Sounds [4] | not F8 | |  |                  |                   | [18] Air Dryers on Shutdown |
-| Ditchlights*      | not F7, F9, not F12 | F | | Front Ditchlights |
-| Ditchlights*      | not F7, F9, not F12 | R | | Rear Ditchlights |
-| Number Boards*    | F10 |   |   | Number Boards    |
-| Marker Lights*    | F11 |   |   | Marker Lights    |
-| Switching Mode*   | F12 |   |   | Front & Rear Headlight | Dimmer |
-| Extra Lighting*   | F13 |   |   | Extra Lighting   |
-| Extra Lighting*   | F14 |   |   | Extra Lighting   |
-| Extra Lighting*   | F15 |   |   | Extra Lighting   |
-| Extra Lighting*   | F16 |   |   | Extra Lighting   |
-| Random Sound 1    | F17 |   |   |                  |                   | [8] Radiator |
-| Random Sound 2    | F18 |   |   |                  |                   | [13] Sanding Valve |
-| Random Sound 3    | F19 |   |   |                  |                   | [24] Short Air Let Off |
-| Random Sound 4    | F20 |   |   |                  |                   | [7] Air Compressor |
-| Random Sound 5    | F21 |   |   |                  |                   | [17]  Air Dryer |
-| Front Dim [^PTLight] | F22, not F23 | | | Front Light [2] (Dim) |
-| Front Bright [^PTLight] | not F22, F23 | | | Front Light [1] |
-| Front Bright/Ditch | F22, F23 | | | Front Headlight [1], Front Ditchlights |
-| Reverser Center   | F24 |   |   |                  | Shift 5 (Reverser) | [20] Reverser Center |
-| Random Sound 6    | F25 |   |   |                  |                   | [32] Shutters |
-| Rear Dim [^PTLight] | F26, not F27 | | | Rear Light [2] (Dim) |
-| Rear Bright [^PTLight] | not F26, F27 | | | Front Light [1] |
-| Rear Bright/Ditch | F26, F27 | | | Rear Light [1], Rear Ditchlights |
-| Coast             | F30 |   |   |                  | Shift 3 (Coast) |
-| Run 8             | F31 |   |   |                  | Shift 2 (Run 8) |
+Marks in the first column indicate the following:
+- R: Required
+- O: Optional, model dependent
+- P: ProtoThrottle only [^PTLight]
+- D: Dynamic Sound Control only
+
+All other functions slots should match the default mapping, but it is always worth verifying.
+
+|   | Name              | Conditions | Physical Outputs | Logical Functions | Sounds |
+| - | ----------------- | ---------- | ---------------- | ----------------- | ------ |
+|   | Front Headlight   | Fwd, F0    | Front Light [1]  |
+|   | Rear Headlight    | Rev, F0    | Rear Light [1]   |
+|   | Bell              | F1         |                  |                   | [4] Bell |
+|   | Horn              | F2         |                  | Grade Crossing    | [3] Horn |
+|   | Coupler           | F3         |                  |                   | Coupler [^Coupler] |
+| R | Brake             | F4         |                  | Brake 3           |          |
+| R | Brake [1]         | not F4     |                  | Disable Brake Sound  |
+| R | Dynamic Brake     | F5         |                  | Shift 1 (Dynamics)   | [6] Dynamic Brakes |
+| R | Heavy Load        | F6         |                  | Shift 6 (Heavy Load) |
+| R | Dimmer            | F7         |                  | Dimmer            | [24] Short Air Let Off |
+|   | Engine Sounds     | F8         |                  |                   | [1] Prime Mover Sound |
+| R | Engine Sounds [2] | F8         |                  |                   | [29] Brake Automatic Set/Release |
+|   | Engine Sounds     | Stop, F8   |                  |                   | [19] Reverser |
+| R | Engine Sounds [3] | Stop, F8, not F15 |  Update This | Update This | [26] Starting Delay |
+|   | Engine Sounds     | Drive, F8  |                  |                   | [25] Traction Motors |
+| R | Engine Sounds [4] | not F8     |                  |                   | [18] Air Dryers on Shutdown |
+| O | Ditchlights*      | Fwd, not F7, F9, not F12 | Front Ditchlights |
+| O | Ditchlights*      | Rev, not F7, F9, not F12 | Rear Ditchlights |
+| O | Number Boards*    | F10        | Number Boards    |
+| O | Marker Lights*    | F11        | Marker Lights    |
+| R | Switching Mode*   | F12        | Front & Rear Headlight | Dimmer |
+| O | Extra Lighting*   | F13        | Extra Lighting   |
+| O | Extra Lighting*   | F14        | Extra Lighting   |
+| O | Extra Lighting*   | F15        | Extra Lighting   |
+| O | Extra Lighting*   | F16        | Extra Lighting   |
+| R | Random Sound 1    | F17        |                  |                   | [8] Radiator |
+|   | Random Sound 2    | F18        |                  |                   | [13] Sanding Valve |
+|   | Random Sound 3    | F19        |                  |                   | [24] Short Air Let Off |
+|   | Random Sound 4    | F20        |                  |                   | [7] Air Compressor |
+|   | Random Sound 5    | F21        |                  |                   | [17]  Air Dryer |
+| P | Front Dim         | F22, not F23 | Front Light [2] (Dim) |
+| P | Front Bright      | not F22, F23 | Front Light [1] |
+| P | Front Bright & Ditch | F22, F23  | Front Headlight [1], Front Ditchlights |
+|   | Reverser Center   | F24        |                  | Shift 5 (Reverser) | [20] Reverser Center |
+|   | Random Sound 6    | F25        |                  |                   | [32] Shutters |
+| P | Rear Dim          | F26, not F27 | Rear Light [2] (Dim) |
+| P | Rear Bright       | not F26, F27 | Rear Light [1] |
+| P | Rear Bright & Ditch | F26, F27 | Rear Light [1], Rear Ditchlights |
+| D | Coast             | F30        |                  | Shift 3 (Coast) |
+| D | Run 8             | F31        |                  | Shift 2 (Run 8) |
 
 ### Identification
 
